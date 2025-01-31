@@ -18,7 +18,7 @@ class MyIntl extends TimeagoIntl { }
   providers: [
     { provide: TimeagoIntl, useClass: TimeagoIntl },
     { provide: TimeagoFormatter, useClass: TimeagoFormatter },
-    {}
+    {provide: }
   ]
 })
 export class PhotoComponent {
