@@ -25,3 +25,11 @@ export function parseUserPhoto(user: User): User {
     user.photoOFTheDay = getPhotoOfTheDay(user)
     return user
 }
+
+export function parseQuery(query: QueryPagination | UserQueryPagination): string {
+    let queryString = '?'
+    if (query.pageSize)
+        queryString += '&pageSize=${query.pageSize}'
+    if (query.currentPage)
+        queryString += '&currentPage=${query.currentPage}'
+}
