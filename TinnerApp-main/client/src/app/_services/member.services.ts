@@ -3,6 +3,7 @@ import { inject, Injecttable, signal } from "@angular/core"
 import { environment } from "../../environments/environment"
 import { cacheManager } from "../_helper/cache"
 import { User } from "../_models/user"
+import { parseQuery } from "../_helper/helper"
 
 
 type dataType = 'member' | 'follower' | 'following'
@@ -28,6 +29,15 @@ export class MemberService {
         }
 
         console.log(`load ${category} frome cache !!`)
+        const url = this.url + 'user/' + parseQuery(pagination)
+        this.http.get<Paginator<UserQueryPagination, User>>(url).subscribe({
+            next: response => {
+                key = cacheManager.createKey(pagination)
+                cacheManager.save(key, category, response)
+                this.paginator.set(response)
+            }
+        })
 
     }
+    getMember() { }
 }
